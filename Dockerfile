@@ -7,6 +7,7 @@ ENV GEM_HOME="/SCALEe/scale.app/vendor/bundle"
 ENV PATH $GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH
 RUN apt-get update && apt-get install -y -f \ 
     wget \
+    git \
     build-essential=12.1ubuntu2  \
     sqlite3=3.11.0-1ubuntu1 \
     sqlite3-pcre=0~git20070120091816+4229ecc-0ubuntu1 \
@@ -24,6 +25,9 @@ RUN gem install json_pure -v 1.8.3
 RUN gem install bundler
 USER docker
 WORKDIR ${SCALE_HOME}/scale.app
-RUN bundle install --binstubs && bundle exec rake db:migrate
-CMD ["bundle", "exec", "thin", "start", "--port", "8080"]
+RUN bundle install --binstubs \
+ && bundle exec rake db:migrate \
+ && git submodule init \
+ && git submodule update
+CMD ["bundle", "exec", "thin", "start", "--port", "8080". "--daemonize"]
 EXPOSE 8080
