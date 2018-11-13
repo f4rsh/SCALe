@@ -23,6 +23,7 @@ RUN cd global-6.5.1 && ./configure && make && make install
 RUN gem install json_pure -v 1.8.3
 RUN gem install bundler
 USER docker
-RUN cd ${SCALE_HOME}/scale.app && bundle install --binstubs && bundle exec rake db:migrate
+WORKDIR ${SCALE_HOME}/scale.app
+RUN bundle install --binstubs && bundle exec rake db:migrate
 CMD ["bundle", "exec", "thin", "start", "--port", "8080"]
 EXPOSE 8080
