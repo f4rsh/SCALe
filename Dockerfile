@@ -3,6 +3,8 @@ RUN useradd -ms /bin/bash docker
 COPY --chown=docker:docker . /SCALe
 WORKDIR /SCALe
 ENV SCALE_HOME="/SCALe"
+ENV GEM_HOME="/SCALEe/scale.app/vendor/bundle"
+ENV PATH $GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH
 RUN apt-get update && apt-get install -y -f \ 
     wget \
     build-essential=12.1ubuntu2  \
@@ -21,5 +23,5 @@ RUN cd global-6.5.1 && ./configure && make && make install
 RUN gem install json_pure -v 1.8.3
 RUN gem install bundler -v 1.8.3
 USER docker
-RUN cd ${SCALE_HOME}/scale.app && bundle install --path vendor/bundle/  &&   bundle exec rake db:migrate
+RUN cd ${SCALE_HOME}/scale.app && bundle install && bundle exec rake db:migrate
 ENTRYPOINT [ "/bin/bash" ]
