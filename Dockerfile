@@ -24,4 +24,3 @@ RUN gem install json_pure -v 1.8.3
 RUN gem install bundler
 USER docker
 RUN cd ${SCALE_HOME}/scale.app && bundle install --binstubs && bundle exec rake db:migrate
-ENTRYPOINT [ "/bin/bash" ]
