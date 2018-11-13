@@ -29,5 +29,5 @@ RUN bundle install --binstubs \
  && bundle exec rake db:migrate \
  && git submodule init \
  && git submodule update
-CMD ["bundle", "exec", "thin", "start", "--port", "8080". "--daemonize"]
+CMD ["bundle", "exec", "thin", "start", "--port", "8080", "--daemonize"]
 EXPOSE 8080
