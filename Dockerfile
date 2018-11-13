@@ -23,5 +23,5 @@ RUN cd global-6.5.1 && ./configure && make && make install
 RUN gem install json_pure -v 1.8.3
 RUN gem install bundler -v 1.8.3
 USER docker
-RUN cd ${SCALE_HOME}/scale.app && bundle install && bundle exec rake db:migrate
+RUN cd ${SCALE_HOME}/scale.app && bundle install --binstubs && bundle exec rake db:migrate
 ENTRYPOINT [ "/bin/bash" ]
