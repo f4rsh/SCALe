@@ -8,6 +8,7 @@ ENV PATH $GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH
 RUN apt-get update && apt-get install -y -f \ 
     wget \
     git \
+    global \
     build-essential=12.1ubuntu2  \
     sqlite3=3.11.0-1ubuntu1 \
     sqlite3-pcre=0~git20070120091816+4229ecc-0ubuntu1 \
